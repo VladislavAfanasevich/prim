@@ -1,8 +1,19 @@
+{% extends 'news/base.html' %}
+{% block content %}
+{#    Фильтр новостей:#}
+{#    <a href="{% url 'news_date_filter' pk=4 %}"><button type="submit">Все</button></a>#}
+{#    <a href="{% url 'news_date_filter' pk=1 %}"><button type="submit">За день</button></a>#}
+{#    <a href="{% url 'news_date_filter' pk=2 %}"><button type="submit">За неделю</button></a>#}
+{#    <a href="{% url 'news_date_filter' pk=3 %}"><button type="submit">За месяц</button></a>-->#}
 
-{% for new in news %}
+    {% for new in news.object_list%}
+        <h2><a href="{% url 'news_detail' pk=new.id %}">{{ new.title }} </a></h2>
+        <p>{{ new.text_description }}</p>
+        <p>{{ new.date_of_creation }}</p>
+    {% endfor %}
 
-    <h2><a href="{% url 'news_detail' pk=new.id %}">{{ new.title }} </a></h2>
-    <p>{{ new.text_description }}</p>
-    <p>{{ new.date_of_creation }}</p>
 
-{% endfor %}
+{% endblock %}
+
+
+

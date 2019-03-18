@@ -3,18 +3,32 @@
 {% block desc %}{{ new.description }}{% endblock desc %}
 {% block keywords %}{{ new.keywords }}{% endblock keywords %}
 {% block title %}{{ new.title }}{% endblock title %}
-
 {% block content %}
 
 
-<h1>{{ new.title }}</h1>
-<p>{{ new.text }}</p><hr>
-<h2>Категория: {{ new.category }}</h2><br>
-<h2>Тэги: {% for tag in new.tags.all %}
+    <h1>{{ new.title }}</h1>
+    <p>{{ new.text }}</p><hr>
+    <h2>Категория: {{ new.category }}</h2><br>
+    <h2>Тэги: {% for tag in new.tags.all %}
 
-                {{ tag.title }}
-          {% endfor %}
-</h2><br>
-<p>{{ new.user }} - {{ new.date_of_creation }}</p>
+                    {{ tag.title }}
+              {% endfor %}
+    </h2><br>
+    <p>{{ new.user }} - {{ new.date_of_creation }}</p><hr>
 
+    <h4>Комментарии</h4>
+    {%for comment in comments %}
+        Пользователь - {{ comment.user }}<br>
+        {{ comment.text }}<br>
+        Добавлен - {{ comment.date }}<br><br><br>
+    {% endfor %}
+    {% if user.is_active %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Отправить</button>
+        </form>
+    {% else %}
+        <h4>Оставлять комментарии могут только авторизированные пользователи.</h4>
+    {% endif %}
 {% endblock content %}
